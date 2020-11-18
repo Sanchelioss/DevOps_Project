@@ -26,7 +26,7 @@
   uri:
     url: "http://localhost"
     return_content: yes
-  timeout: 520
+    timeout: 520
   register: out
   failed_when: "'Nextcloud' not in out.content"
 - name: Print out
