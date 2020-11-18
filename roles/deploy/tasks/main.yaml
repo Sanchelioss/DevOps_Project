@@ -10,16 +10,13 @@
     executable: /bin/bash
   register: start
   become: yes
-- name: Printing result
-  debug:
-    msg: "{{ start.stdout_lines }}"
 
 - name: Check connection to Localhost
   wait_for:
     host: "localhost"
     port: "80"
     state: started
-    timeout: 60
+    timeout: 120
   register: out
 - name: print out
   debug:
