@@ -24,7 +24,7 @@
   
 - name: Pause for install app
   pause:
-    seconds: 60
+    seconds: 180
 
 - name: Check content to the site
   uri:
