@@ -4,7 +4,7 @@ packages_for_docker:
   - curl
   - software-properties-common
 
-repo_url: "https://download.docker.com/linux/ubuntu bionic stable"
+#repo_url: "https://download.docker.com/linux/ubuntu bionic stable"
 
 source_list: /etc/apt/sources.list
 
