@@ -21,12 +21,15 @@
 - name: print out
   debug:
     msg: "{{ out }}"
+  
+- name: Pause for install app
+  pause:
+    seconds: 60
 
 - name: Check content to the site
   uri:
     url: "http://localhost"
     return_content: yes
-    timeout: 520
   register: out
   failed_when: "'Nextcloud' not in out.content"
 - name: Print out
