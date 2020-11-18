@@ -1,0 +1,45 @@
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    parameters {
+        string(name: 'Git_repository', defaultValue: 'git@github.com:Sanchelioss/DevOps_Project.git', description: 'Project repository (Clone with SSH)')
+        credentials(name: 'Sanchelioss/******', defaultValue: 'Git_account', description: 'Credentials for project repository', credentialType: "Username with password", required: true )
+    }
+    
+    stages {
+        stage('Pull git repository') {
+            steps {
+                git credentialsId: "${params.Git_credentials}", url: "${params.Git_repository}"
+            }
+        }
+
+        stage('check files') {
+            steps { 
+                sh '''
+                    pwd
+                    printf "\n"
+                    ls -la
+                '''  
+            }
+        }
+
+        stage('Deploy app') {
+            steps {
+                ansiblePlaybook(
+                    inventory: 'inventory.yaml',
+                    playbook: 'install.yaml'
+                )
+            }
+        }
+    }
+    post {
+        success {
+            slackSend (color: '#00FF00', message: "SUCCESSFULL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+        failure {
+            slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+    }
+}

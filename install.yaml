@@ -1,0 +1,62 @@
+- hosts: all
+  become: yes
+  pre_tasks:
+    - name: Сheck host
+      shell: |
+        hostname
+        printf "\n"
+        ip a
+      register: out
+    - name: Show host
+      debug:
+        msg: "{{ out.stdout_lines }}"
+
+    - name: Checking started docker service
+      shell: |
+        systemctl is-active docker
+        exit 0
+      args:
+        executable: /bin/bash
+      register: output
+    - name: Printing result
+      debug:
+        msg: "{{ output.stdout_lines }}"
+
+    - name: Installing docker if service is inactive
+      include_role:
+        name: docker
+        tasks_from: install
+      when: (output.stdout == "unknown") or
+            (output.stdout == "inactive")
+
+    - name: Creating directories for nextcloud
+      file:
+        path: "{{ data_nextcloud }}"
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: 0755
+#      with_data:
+#        - /opt/nextcloud/app/html
+#        - /opt/nextcloud/app/config
+#        - /opt/nextcloud/app/custom_apps
+#        - /opt/nextcloud/app/data
+#        - /opt/nextcloud/app/themes
+
+    - name: Creating directories for mariadb
+      file:
+        path: "{{ data_mariadb }}"
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: 0755
+
+    - name: Creating directory for backups
+      file:
+        path: "{{ backups }}"
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: 0755
+  roles:
+    - deploy

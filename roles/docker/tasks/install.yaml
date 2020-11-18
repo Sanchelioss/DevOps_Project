@@ -1,0 +1,36 @@
+- name: Install packages for Docker
+  apt:
+    name: "{{ packages_for_docker }}"
+    state: present
+
+- name: Add GPG key for download docker
+  shell: |
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  args:
+    executable: /bin/bash
+
+- name: Add Docker repo
+  get_url:
+    url: "{{ repo_url }}"
+    dest: "{{ source_list }}"
+  become: yes
+
+- name: Install Docker
+  apt:
+    name: "{{ docker_packages }}"
+    state: present
+  become: yes
+
+- name: Add user to docker group and delegate priviliges
+  shell: |
+    usermod -aG docker $USER
+    chown $USER /var/run/docker.sock
+  args:
+    executable: /bin/bash
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes

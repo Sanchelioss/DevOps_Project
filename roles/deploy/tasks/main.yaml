@@ -1,0 +1,36 @@
+- name: Copy docker-compose file
+  template:
+    src: docker-compose.yaml
+    dest: "{{ docker_compose_path }}"
+
+- name: Starting deployment
+  shell: |
+    cd /opt/nextcloud
+    docker-compose up -d
+  args:
+    executable: /bin/bash
+  register: start
+- name: Printing result
+  debug:
+    msg: "{{ start.stdout_lines }}"
+
+- name: Check connection to Localhost
+  wait_for:
+    host: "localhost"
+    port: "80"
+    state: started
+    timeout: 60
+  register: out
+- name: print out
+  debug:
+    msg: "{{ out }}"
+
+- name: Check content to the site
+  uri:
+    url: "http://localhost"
+    return_content: yes
+  register: out
+  failed_when: "'Nextcloud' not in out.content"
+- name: Print out
+  debug:
+    msg: "{{ out }}"

@@ -1,0 +1,10 @@
+data_nextcloud:
+  - /opt/nextcloud/app/html
+  - /opt/nextcloud/app/config
+  - /opt/nextcloud/app/custom_apps
+  - /opt/nextcloud/app/data
+  - /opt/nextcloud/app/themes
+
+data_mariadb: /var/db/mysql
+
+backups: /opt/backups_nextcloud
