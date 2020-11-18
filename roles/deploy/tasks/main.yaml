@@ -5,8 +5,7 @@
 
 - name: Starting deployment
   shell: |
-    cd /opt/nextcloud
-    docker-compose up -d
+    docker-compose -f /opt/nextcloud/docker-compose.yaml up -d
   args:
     executable: /bin/bash
   register: start
