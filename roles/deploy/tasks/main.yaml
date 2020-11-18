@@ -9,6 +9,7 @@
   args:
     executable: /bin/bash
   register: start
+  become: yes
 - name: Printing result
   debug:
     msg: "{{ start.stdout_lines }}"
