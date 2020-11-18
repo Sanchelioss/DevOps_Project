@@ -1,7 +1,7 @@
 - name: Copy docker-compose file
   copy:
     src: "{{ docker_compose_scr  }}"
-    dest: "{{ docker_compose_path }}"
+    dest: "{{ docker_compose_dsc }}"
 
 - name: Starting deployment
   shell: |
