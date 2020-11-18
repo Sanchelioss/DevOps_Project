@@ -1,6 +1,6 @@
 - name: Copy docker-compose file
-  template:
-    src: docker-compose.yaml
+  copy:
+    src: "{{ docker_compose_scr  }}"
     dest: "{{ docker_compose_path }}"
 
 - name: Starting deployment

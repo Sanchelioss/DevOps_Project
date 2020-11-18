@@ -1,1 +1,3 @@
-docker_compose_path: /opt/nextcloud/
+docker_compose_scr: ~/roles/deploy/files/docker-compose.yaml
+
+docker_compose_dsc: /opt/nextcloud/
