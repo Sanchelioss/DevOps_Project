@@ -1,75 +1,87 @@
 ---
 - hosts: all
-  gather_facts: yes # to get "ansible_hostname" in "Notify Slack of Playbook"
   become: yes
-  vars:
-    name_cms: "wordpress"
-    name_db: "mariadb"
-    docker_image: "bitnami/wordpress:latest"
-
-  tasks:
-    - name: Pull docker image
+  pre_tasks:
+    - name: Сheck host
       shell: |
-        docker pull "{{ docker_image }}"
+        hostname
+        printf "\n"
+        ip a
+      register: out
+    - name: Show host
+      debug:
+        msg: "{{ out.stdout_lines }}"
+
+    - name: Stoping and delete docker containers
+      shell: |
+        docker-compose -f /opt/nextcloud/docker-compose.yaml down
       args:
         executable: /bin/bash
+      register: stop
+      become: yes
+    - name: Print stop
+      debug:
+        msg: "{{ stop.stdout_lines  }}"
 
-    - name: Stop docker container
+    - name: Backup user data
       shell: |
-        docker stop "{{ name_cms }}"
+        rsync -az /opt/nextcloud/app/ /opt/nextcloud/backups_nextcloud/app_data.$(date +%Y%m%d-%H.%M.%S)
+        rsync -az /var/db/mysql/ /opt/nextcloud/backups_nextcloud/db_data.$(date +%Y%m%d-%H.%M.%S)
       args:
         executable: /bin/bash
+      become: yes
+      register: out
+    - name: Print out
+      debug:
+        msg: "{{ out.stdout_lines  }}"
 
-    - name: Backup data
+    - name: Remove docker images
       shell: |
-        rsync -a /var/lib/docker/volumes/ /data/backups/volumes.bakup.$(date +%Y%m%d-%H.%M.%S)
+        docker rmi "{{ name_app }}"
+        docker rmi "{{ name_db }}
       args:
         executable: /bin/bash
+      register: out
+    - name: Print out
+      debug:
+        msg: "{{ out.stdout_lines  }}"
 
-    - name: Remove docker container
-      shell: |
-        docker rm "{{ name_cms }}"
-      args:
-        executable: /bin/bash
-    
-    - name: Docker run wordpress
-      shell: |
-        docker run -d --name wordpress \
-        -p 8080:8080 -p 8443:8443 \
-        -e ALLOW_EMPTY_PASSWORD=yes \
-        -e WORDPRESS_DATABASE_USER=bn_wordpress \
-        -e WORDPRESS_DATABASE_NAME=bitnami_wordpress \
-        --network wordpress-network \
-        --volume wordpress_data:/bitnami/wordpress \
-        bitnami/wordpress:latest
-      args:
-        executable: /bin/bash
+    - name: Removing docker-compose file
+      file:
+        path: "{{ docker_compose_path }}"
+        state: absent
 
-    - name: Checks if App working correctly
-      block:
-        - name: Checks if it works
+  roles:
+    - update
+
+  post_task:
+    - name: Check connection to Localhost
+      wait_for:
+        host: "localhost"
+        port: "80"
+        state: started
+        timeout: 20
+        register: out
+    - name: print out
+      debug:
+        msg: "{{ out }}"
+
+    - name: Pause for runing app
+      pause:
+        seconds: 20
+
+    - block:
+        - name: Check content to the site
           uri:
-            url: "http://{{ ansible_ssh_host }}:8080"
+            url: "http://localhost"
             return_content: yes
           register: out
-          failed_when: "'My name is Dmitry' not in out.content"
-          become: no
-        
-        - name: Show content
+          failed_when: "'Nextcloud' not in out.content"
+        - name: Print out
           debug:
-            msg: "out.status"
-        
-        - name: Notify Slack if all good
-          include_role:
-            name: slack_handler
-            tasks_from: good
+            msg: "{{ out }}"
       rescue:
-        - include_role:
-            name: slack_handler
-            tasks_from: failure
-            
-        # - name: Import playbook tasks
-        #   include_role:
-        #     name: rollback
-        #     tasks_from: rollback
-        #   tags: never
+        - name: Rollback to previous version app
+          include_role:
+            name: rollback
+            tasks_from: rollback

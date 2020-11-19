@@ -1,0 +1,13 @@
+- name: Copy docker-compose file
+  copy:
+    src: "{{ docker_compose_scr_upd  }}"
+    dest: "{{ docker_compose_dsc }}"
+
+- name: Starting update
+  shell: |
+    docker-compose -f /opt/nextcloud/docker-compose.yaml up -d
+  args:
+    executable: /bin/bash
+  register: start
+  become: yes
+
