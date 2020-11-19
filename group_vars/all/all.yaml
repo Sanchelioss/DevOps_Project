@@ -7,8 +7,10 @@ data_nextcloud:
 
 data_mariadb: /var/db/mysql
 
-backups: /opt/backups_nextcloud
-
+backups: 
+  - /opt/backups_nextcloud/app_data
+  - /opt/backups_nextcloud/db_data
+  
 docker_compose_path: /opt/nextcloud/docker-compose.yaml
 
 docker_compose_scr: ./roles/deploy/files/docker-compose.yaml
