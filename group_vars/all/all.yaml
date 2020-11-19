@@ -15,3 +15,10 @@ docker_compose_scr: ./roles/deploy/files/docker-compose.yaml
 
 docker_compose_dsc: /opt/nextcloud/
 
+source_app_dir: /opt/nextcloud/app
+
+sync_app_dir: /opt/nextcloud/backups_nextcloud/app_data
+
+source_db_dir: /var/db/mysql/
+
+sync_db_dir: /opt/nextcloud/backups_nextcloud/db_data
