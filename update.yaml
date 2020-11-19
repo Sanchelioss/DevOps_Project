@@ -55,7 +55,7 @@
   roles:
     - update
 
-  post_task:
+  post_tasks:
     - name: Check connection to Localhost
       wait_for:
         host: "localhost"
