@@ -7,6 +7,7 @@
         printf "\n"
         ip a
       register: out
+      changed_when: false
     - name: Show host
       debug:
         msg: "{{ out.stdout_lines }}"
@@ -17,7 +18,7 @@
       args:
         executable: /bin/bash
       register: stop
-      become: yes
+      changed_when: false
     - name: Print stop
       debug:
         msg: "{{ stop.stdout_lines  }}"
@@ -28,19 +29,20 @@
         rsync -az /var/db/mysql/ /opt/nextcloud/backups_nextcloud/db_data.$(date +%Y%m%d-%H.%M.%S)
       args:
         executable: /bin/bash
-      become: yes
       register: out
+      changed_when: false
     - name: Print out
       debug:
         msg: "{{ out.stdout_lines  }}"
 
     - name: Remove docker images
       shell: |
-        docker rmi "{{ name_app }}"
-        docker rmi "{{ name_db }}
+        docker rmi nextcloud
+        docker rmi mysql
       args:
         executable: /bin/bash
       register: out
+      changed_when: false
     - name: Print out
       debug:
         msg: "{{ out.stdout_lines  }}"

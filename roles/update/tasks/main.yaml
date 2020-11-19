@@ -10,4 +10,4 @@
     executable: /bin/bash
   register: start
   become: yes
-
+  changed_when: false

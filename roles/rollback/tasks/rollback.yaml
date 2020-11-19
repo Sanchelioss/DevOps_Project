@@ -11,8 +11,8 @@
 
 - name: Remove docker images
   shell: |
-    docker rmi "{{ name_app }}"
-    docker rmi "{{ name_db }}
+    docker rmi nextcloud
+    docker rmi mysql
   args:
     executable: /bin/bash
   register: out
