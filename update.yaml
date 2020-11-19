@@ -19,9 +19,6 @@
         executable: /bin/bash
       register: stop
       changed_when: false
-    - name: Print stop
-      debug:
-        msg: "{{ stop.stdout_lines  }}"
 
     - name: Backup user data
       shell: |
@@ -31,6 +28,7 @@
         executable: /bin/bash
       register: out
       changed_when: false
+      become: yes
     - name: Print out
       debug:
         msg: "{{ out.stdout_lines  }}"
