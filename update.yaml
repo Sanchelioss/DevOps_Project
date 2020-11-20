@@ -22,8 +22,8 @@
 
     - name: Backup user data
       shell: |
-        rsync -r /opt/nextcloud/app/ /opt/backups_nextcloud/app_data/$(date +%Y%m%d-%H.%M.%S)
-        rsync -r /var/db/mysql/ /opt/backups_nextcloud/db_data/$(date +%Y%m%d-%H.%M.%S)
+        rsync -r /opt/nextcloud/app/data /opt/backups_nextcloud/app_data/
+        rsync -r /var/db/mysql/ /opt/backups_nextcloud/db_data/
       args:
         executable: /bin/bash
       register: out
@@ -33,7 +33,7 @@
     - name: Remove docker images
       shell: |
         docker rmi nextcloud:19.0.4-apache
-        docker rmi mariadb:latest
+#        docker rmi mariadb:latest
       args:
         executable: /bin/bash
       register: out
