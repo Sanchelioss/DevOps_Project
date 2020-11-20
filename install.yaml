@@ -50,38 +50,22 @@
       when: (output.stdout == "unknown") or
             (output.stdout == "inactive")
 
-    - name: Creating directories for nextcloud
+    - name: Creating directories for app, db, backups
       file:
-        path: "{{ data_nextcloud }}"
+        path: "{{ item }}"
         state: directory
         owner: root
         group: root
         mode: 0755
-      with_data_nextcloud:
+      with_items:
         - /opt/nextcloud/app/html
         - /opt/nextcloud/app/config
         - /opt/nextcloud/app/custom_apps
         - /opt/nextcloud/app/data
         - /opt/nextcloud/app/themes
-
-    - name: Creating directories for mariadb
-      file:
-        path: /var/db/mysql
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
-
-    - name: Creating directory for backups
-      file:
-        path: "{{ backups }}"
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
-      with_backups:
+        - /var/db/mysql
         - /opt/backups_nextcloud/app_data
-        - /opt/backups_nextcloud/db_data
+        - /opt/backups_nextcloud/db_dat
 
 #  roles:
 #    - deploy
