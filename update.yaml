@@ -28,7 +28,7 @@
         recursive: yes
         times: yes
 
-    - name: Backup user data (app)
+    - name: Backup user data (db)
       synchronize:
         mode: push
         src: "{{ source_db_dir }}"

@@ -8,6 +8,7 @@
     docker-compose -f /opt/nextcloud/docker-compose.yaml up -d
   args:
     executable: /bin/bash
+  changed_when: false
   register: start
   become: yes
 
@@ -21,7 +22,7 @@
 - name: print out
   debug:
     msg: "{{ out }}"
-  
+
 - name: Pause for install app
   pause:
     seconds: 180

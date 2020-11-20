@@ -3,12 +3,13 @@
     name: "{{ packages_for_docker }}"
     state: present
 
-- name: Add GPG key adn repo
+- name: Add GPG key and repo
   shell: |
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
   args:
     executable: /bin/bash
+  changed_when: false
 
 - name: Install Docker
   apt:
@@ -22,6 +23,7 @@
     chown $USER /var/run/docker.sock
   args:
     executable: /bin/bash
+  changed_when: false
 
 - name: Start Docker service
   service:

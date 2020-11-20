@@ -4,10 +4,6 @@ packages_for_docker:
   - curl
   - software-properties-common
 
-#repo_url: "https://download.docker.com/linux/ubuntu bionic stable"
-
-source_list: /etc/apt/sources.list
-
 docker_packages:
   - docker-ce
   - docker-ce-cli

@@ -5,6 +5,7 @@
     executable: /bin/bash
   register: stop
   become: yes
+  changed_when: false
 - name: Print stop
   debug:
     msg: "{{ stop.stdout_lines  }}"
@@ -25,7 +26,7 @@
     path: "{{ docker_compose_path }}"
     state: absent
 
-- name: Return docker-compose file
+- name: Return previous docker-compose file
   copy:
     src: "{{ docker_compose_scr  }}"
     dest: "{{ docker_compose_dsc }}"

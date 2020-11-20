@@ -7,6 +7,7 @@
         printf "\n"
         ip a
       register: out
+      changed_when: false
     - name: Show host
       debug:
         msg: "{{ out.stdout_lines }}"
@@ -18,6 +19,7 @@
       args:
         executable: /bin/bash
       register: output
+      changed_when: false
     - name: Printing result
       debug:
         msg: "{{ output.stdout_lines }}"
@@ -35,6 +37,7 @@
         exit 0
       args:
         executable: /bin/bash
+      changed_when: false
       register: output
     - name: Printing result
       debug:
@@ -54,12 +57,6 @@
         owner: jenkins
         group: jenkins
         mode: 0755
-#      with_data:
-#        - /opt/nextcloud/app/html
-#        - /opt/nextcloud/app/config
-#        - /opt/nextcloud/app/custom_apps
-#        - /opt/nextcloud/app/data
-#        - /opt/nextcloud/app/themes
 
     - name: Creating directories for mariadb
       file:
