@@ -56,7 +56,7 @@
         host: "localhost"
         port: "80"
         state: started
-        timeout: 20
+        timeout: 120
         register: out
     - name: print out
       debug:
@@ -64,7 +64,7 @@
 
     - name: Pause for runing app
       pause:
-        seconds: 20
+        seconds: 180
 
     - block:
         - name: Check content to the site
