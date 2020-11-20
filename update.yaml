@@ -86,8 +86,8 @@
             channel: "#ci_cd_test"
             msg: "Update is failed"
 
-#        - name: Rollback to previous version app
-#          include_role:
-#            name: rollback
-#            tasks_from: rollback
+        - name: Rollback to previous version app
+          include_role:
+            name: rollback
+            tasks_from: rollback
 

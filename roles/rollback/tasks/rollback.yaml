@@ -35,7 +35,7 @@
   with_fileglob:
     - "/var/db/mysql/*"
 
-- name: Comeback previous user and db data to home folders
+- name: Comeback previous contents to home folders
   shell: |
     rsync -r /opt/backups_nextcloud/app_data/ /opt/nextcloud/app/
     rsync -r /opt/backups_nextcloud/db_data/ /var/db/mysql/
