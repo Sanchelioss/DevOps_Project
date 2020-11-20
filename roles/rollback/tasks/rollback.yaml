@@ -6,9 +6,6 @@
   register: stop
   become: yes
   changed_when: false
-- name: Print stop
-  debug:
-    msg: "{{ stop.stdout_lines  }}"
 
 - name: Remove docker images
   shell: |
@@ -37,8 +34,8 @@
 
 - name: Comeback previous contents to home folders
   shell: |
-    rsync -r /opt/backups_nextcloud/app_data/ /opt/nextcloud/app/
-    rsync -r /opt/backups_nextcloud/db_data/ /var/db/mysql/
+    rsync -a /opt/backups_nextcloud/app_data/ /opt/nextcloud/app/
+    rsync -a /opt/backups_nextcloud/db_data/ /var/db/mysql/
   args:
     executable: /bin/bash
   register: out

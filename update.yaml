@@ -22,8 +22,8 @@
 
     - name: Backup user data
       shell: |
-        rsync -r /opt/nextcloud/app/ /opt/backups_nextcloud/app_data/
-        rsync -r /var/db/mysql/ /opt/backups_nextcloud/db_data/
+        rsync -a /opt/nextcloud/app/ /opt/backups_nextcloud/app_data/
+        rsync -a /var/db/mysql/ /opt/backups_nextcloud/db_data/
       args:
         executable: /bin/bash
       register: out
@@ -72,7 +72,7 @@
             url: "http://localhost"
             return_content: yes
           register: out
-          failed_when: "'hudshah44307534yhposdhnvsilouhfa' not in out.content"
+          failed_when: "'gkbd[fgkrekkmblk5495308ldsk' not in out.content"
         - name: Print out
           debug:
             msg: "{{ out }}"
