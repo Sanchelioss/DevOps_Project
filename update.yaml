@@ -33,7 +33,7 @@
     - name: Remove docker images
       shell: |
         docker rmi nextcloud:19.0.4-apache
-        docker rmi mysql
+        docker rmi mariadb:latest
       args:
         executable: /bin/bash
       register: out
