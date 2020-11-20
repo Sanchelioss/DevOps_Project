@@ -57,10 +57,16 @@
         owner: root
         group: root
         mode: 0755
+      with_data_nexcloud:
+        - /opt/nextcloud/app/html
+        - /opt/nextcloud/app/config
+        - /opt/nextcloud/app/custom_apps
+        - /opt/nextcloud/app/data
+        - /opt/nextcloud/app/themes
 
     - name: Creating directories for mariadb
       file:
-        path: "{{ data_mariadb }}"
+        path: /var/db/mysql
         state: directory
         owner: root
         group: root
@@ -73,5 +79,9 @@
         owner: root
         group: root
         mode: 0755
+      with_backups:
+        - /opt/backups_nextcloud/app_data
+        - /opt/backups_nextcloud/db_data
+
 #  roles:
 #    - deploy
