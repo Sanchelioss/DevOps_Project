@@ -57,7 +57,7 @@
         port: "80"
         state: started
         timeout: 120
-        register: out
+      register: out
     - name: print out
       debug:
         msg: "{{ out }}"
