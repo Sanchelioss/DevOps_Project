@@ -67,5 +67,5 @@
         - /opt/backups_nextcloud/app_data
         - /opt/backups_nextcloud/db_dat
 
-#  roles:
-#    - deploy
+  roles:
+    - deploy
