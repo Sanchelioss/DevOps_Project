@@ -73,5 +73,5 @@
 #        owner: jenkins
 #        group: jenkins
 #        mode: 0755
-  roles:
-    - deploy
+#  roles:
+#    - deploy
