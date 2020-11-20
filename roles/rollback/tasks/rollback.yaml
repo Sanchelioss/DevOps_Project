@@ -12,7 +12,7 @@
 
 - name: Remove docker images
   shell: |
-    docker rmi nextcloud:20.0.2-apache
+    docker rmi nextcloud:19.0.5-apache
     docker rmi mariadb:latest
   args:
     executable: /bin/bash
@@ -52,7 +52,7 @@
 
 - name: Pause for runing app
   pause:
-    seconds: 30
+    seconds: 150
 
 - name: Check content to the site
   uri:
@@ -63,4 +63,3 @@
 - name: Print out
   debug:
     msg: "{{ out }}"
-

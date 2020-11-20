@@ -64,7 +64,7 @@
 
     - name: Pause for runing app
       pause:
-        seconds: 30
+        seconds: 60
 
     - block:
         - name: Check content to the site
@@ -77,11 +77,6 @@
           debug:
             msg: "{{ out }}"
       rescue:
-        - name: Rollback to previous version app
-          include_role:
-            name: rollback
-            tasks_from: rollback
-
         - name: Notify in Slack if update app is failure
           slack:
             username: 'Ansible sender'
@@ -90,4 +85,9 @@
             token: "TFBPBNB2L/B01FX4HAAG0/is8cXkDDVTLq7ItJKM6rWJ7X"
             channel: "#ci_cd_test"
             msg: "Update is failed"
-            parse: 'full'
+
+        - name: Rollback to previous version app
+          include_role:
+            name: rollback
+            tasks_from: rollback
+
