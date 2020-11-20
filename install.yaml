@@ -65,7 +65,7 @@
         - /opt/nextcloud/app/themes
         - /var/db/mysql
         - /opt/backups_nextcloud/app_data
-        - /opt/backups_nextcloud/db_dat
+        - /opt/backups_nextcloud/db_data
 
   roles:
     - deploy
