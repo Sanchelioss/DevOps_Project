@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Install docker to target') {
+        stage('Update app to host') {
             steps {
                 ansiblePlaybook(
                     inventory: 'inventory.yaml',

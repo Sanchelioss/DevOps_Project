@@ -72,7 +72,7 @@
             url: "http://localhost"
             return_content: yes
           register: out
-          failed_when: "'gkbd[fgkrekkmblk5495308ldsk' not in out.content"
+          failed_when: "'Nextcloud' not in out.content"
         - name: Print out
           debug:
             msg: "{{ out }}"
