@@ -33,7 +33,7 @@
     - name: Remove docker images
       shell: |
         docker rmi nextcloud:19.0.4-apache
-#        docker rmi mariadb:latest
+        docker rmi mariadb:latest
       args:
         executable: /bin/bash
       register: out
@@ -56,7 +56,7 @@
         host: "localhost"
         port: "80"
         state: started
-        timeout: 30
+        timeout: 120
       register: out
     - name: print out
       debug:
@@ -64,7 +64,7 @@
 
     - name: Pause for runing app
       pause:
-        seconds: 60
+        seconds: 150
 
     - block:
         - name: Check content to the site
@@ -86,8 +86,8 @@
             channel: "#ci_cd_test"
             msg: "Update is failed"
 
-        - name: Rollback to previous version app
-          include_role:
-            name: rollback
-            tasks_from: rollback
+#        - name: Rollback to previous version app
+#          include_role:
+#            name: rollback
+#            tasks_from: rollback
 

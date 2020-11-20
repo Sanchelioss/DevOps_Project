@@ -13,7 +13,7 @@
 - name: Remove docker images
   shell: |
     docker rmi nextcloud:19.0.5-apache
-#    docker rmi mariadb:latest
+    docker rmi mariadb:latest
   args:
     executable: /bin/bash
   register: out
@@ -76,7 +76,7 @@
 
 - name: Pause for runing app
   pause:
-    seconds: 150
+    seconds: 180
 
 - name: Check content to the site
   uri:
@@ -88,7 +88,7 @@
   debug:
     msg: "{{ out }}"
 
-- name: Notify in Slack if update app is failure
+- name: Notify in Slack if rollback complete
   slack:
     username: 'Ansible sender'
     color: good
