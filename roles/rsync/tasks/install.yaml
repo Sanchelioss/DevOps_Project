@@ -1,0 +1,16 @@
+- name: Install rsync
+  apt:
+    name: "rsync"
+    state: present
+
+- name: Copy rsync.conf
+  copy:
+    src: "{{ rsync_conf_scr }}"
+    dest: "{{ rsync_conf_dest }}"
+
+- name: Start rsync service
+  service:
+    name: rsync
+    state: started
+    enabled: yes
+  become: yes

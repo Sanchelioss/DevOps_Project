@@ -19,8 +19,8 @@ docker_compose_dsc: /opt/nextcloud/
 
 source_app_dir: /opt/nextcloud/app
 
-sync_app_dir: 192.168.100.60:/opt/backups_nextcloud/app_data
+sync_app_dir: /opt/backups_nextcloud/app_data
 
 source_db_dir: /var/db/mysql/
 
-sync_db_dir: 192.168.100.60:/opt/backups_nextcloud/db_data
+sync_db_dir: /opt/backups_nextcloud/db_data

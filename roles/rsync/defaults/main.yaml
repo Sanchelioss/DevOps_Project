@@ -1,0 +1,5 @@
+rsync_conf_scr: ./roles/rsync/files/rsyncd.conf
+
+rsync_conf_dest: /etc
+
+
