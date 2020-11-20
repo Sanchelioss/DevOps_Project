@@ -57,7 +57,7 @@
         owner: root
         group: root
         mode: 0755
-      with_data_nexcloud:
+      with_data_nextcloud:
         - /opt/nextcloud/app/html
         - /opt/nextcloud/app/config
         - /opt/nextcloud/app/custom_apps
