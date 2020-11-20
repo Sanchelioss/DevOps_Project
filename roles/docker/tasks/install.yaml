@@ -2,6 +2,7 @@
   apt:
     name: "{{ packages_for_docker }}"
     state: present
+  become: yes
 
 - name: Add GPG key and repo
   shell: |
@@ -19,10 +20,11 @@
 
 - name: Add user to docker group and delegate priviliges
   shell: |
-    usermod -aG docker $USER
-    chown $USER /var/run/docker.sock
+    usermod -aG docker jenkins
+    chown jenkins /var/run/docker.sock
   args:
     executable: /bin/bash
+  become: yes
   changed_when: false
 
 - name: Start Docker service

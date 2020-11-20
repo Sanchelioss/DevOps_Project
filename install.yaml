@@ -54,24 +54,24 @@
       file:
         path: "{{ data_nextcloud }}"
         state: directory
-        owner: jenkins
-        group: jenkins
-        mode: 0755
+#        owner: jenkins
+#        group: jenkins
+#        mode: 0755
 
     - name: Creating directories for mariadb
       file:
         path: "{{ data_mariadb }}"
         state: directory
-        owner: jenkins
-        group: jenkins
-        mode: 0755
+#        owner: jenkins
+#        group: jenkins
+#        mode: 0755
 
     - name: Creating directory for backups
       file:
         path: "{{ backups }}"
         state: directory
-        owner: jenkins
-        group: jenkins
-        mode: 0755
+#        owner: jenkins
+#        group: jenkins
+#        mode: 0755
   roles:
     - deploy

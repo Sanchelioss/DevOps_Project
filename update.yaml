@@ -22,8 +22,8 @@
 
     - name: Backup user data
       shell: |
-        sudo rsync -r /opt/nextcloud/app/ /opt/nextcloud/backups_nextcloud/app_data/$(date +%Y%m%d-%H.%M.%S)
-        sudo rsync -r /var/db/mysql/ /opt/nextcloud/backups_nextcloud/db_data/$(date +%Y%m%d-%H.%M.%S)
+        sudo rsync -r /opt/nextcloud/app/ /opt/backups_nextcloud/app_data/$(date +%Y%m%d-%H.%M.%S)
+        sudo rsync -r /var/db/mysql/ /opt/backups_nextcloud/db_data/$(date +%Y%m%d-%H.%M.%S)
       args:
         executable: /bin/bash
       register: out
