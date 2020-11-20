@@ -81,3 +81,16 @@
           include_role:
             name: rollback
             tasks_from: rollback
+
+        - name: Notify in Slack if update app is failure
+          slack:
+            username: 'Ansible sender'
+            color: danger
+            icon_url: https://logos-download.com/wp-content/uploads/2016/10/Ansible_logo.png
+            token: "TFBPBNB2L/B01FX4HAAG0/is8cXkDDVTLq7ItJKM6rWJ7X"
+            channel: "#test_senkodima"
+            msg: "Ansible failed on *{{ ansible_hostname }} ({{ inventory_hostname }})* \n
+            *Task*: {{ ansible_failed_task.name }} \n
+            *Action*: {{ ansible_failed_task.action }} \n
+            *Error Message*: \n ```{{ ansible_failed_result | to_nice_json }}``` "
+            parse: 'full'
