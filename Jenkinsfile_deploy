@@ -1,6 +1,7 @@
 pipeline {
-    agent {
-        label 'master'
+    agent master
+    triggers { 
+        cron('H * * * *')
     }
 
     parameters {
@@ -22,6 +23,12 @@ pipeline {
                     printf "\n"
                     ls -la
                 '''  
+            }
+        }
+
+        stage('ansible-playbook code validation') {
+            steps {
+                sh 'ansible-lint ./install.yaml'
             }
         }
 

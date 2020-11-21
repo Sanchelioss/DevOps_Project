@@ -1,6 +1,7 @@
 pipeline {
-    agent {
-        label 'master'
+    agent master
+    triggers {
+        cron('H * * * *')
     }
 
     parameters {
@@ -24,6 +25,13 @@ pipeline {
                 '''  
             }
         }
+
+        stage('ansible-playbook code validation') {
+            steps {
+                sh 'ansible-lint ./update.yaml'
+            }
+        }
+
 
         stage('Update app to host') {
             steps {
