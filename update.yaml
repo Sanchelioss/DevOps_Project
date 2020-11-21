@@ -27,6 +27,7 @@
       args:
         executable: /bin/bash
       register: out
+      tags: skip_ansible_lint
       changed_when: false
       become: yes
 

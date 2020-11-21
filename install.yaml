@@ -20,6 +20,7 @@
         executable: /bin/bash
       register: output
       changed_when: false
+      tags: skip_ansible_lint
     - name: Printing result
       debug:
         msg: "{{ output.stdout_lines }}"
@@ -39,6 +40,7 @@
         executable: /bin/bash
       changed_when: false
       register: output
+      tags: skip_ansible_lint
     - name: Printing result
       debug:
         msg: "{{ output.stdout_lines }}"
