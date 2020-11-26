@@ -4,6 +4,7 @@
     state: present
 
 - name: Add GPG key and repo
+  become: yes
   shell: |
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
@@ -17,6 +18,7 @@
     state: present
 
 - name: Add user to docker group and delegate priviliges
+  become: yes
   shell: |
     usermod -aG docker jenkins
     chown jenkins /var/run/docker.sock
