@@ -88,4 +88,4 @@
           include_role:
             name: rollback
             tasks_from: rollback
-            ansible_become: true
+            become: yes
