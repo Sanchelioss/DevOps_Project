@@ -20,7 +20,7 @@
 - name: Remove app dir contents
   become: yes
   file:
-    path: "{{ item }}"
+    path: "/opt/nextcloud/app/"
     state: absent
   with_fileglob:
     - "/opt/nextcloud/app/*"
@@ -28,7 +28,7 @@
 - name: Remove db dir contents
   become: yes
   file:
-    path: "{{ item }}"
+    path: "/var/db/mysql/"
     state: absent
   with_fileglob:
     - "/var/db/mysql/*"
