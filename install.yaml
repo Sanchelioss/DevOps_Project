@@ -29,6 +29,7 @@
       include_role:
         name: rsync
         tasks_from: install
+        ansible_become: true
       when: (output.stdout == "unknown") or
             (output.stdout == "inactive")
 
@@ -49,6 +50,7 @@
       include_role:
         name: docker
         tasks_from: install
+        ansible_become: true
       when: (output.stdout == "unknown") or
             (output.stdout == "inactive")
 

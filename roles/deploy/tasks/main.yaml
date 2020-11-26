@@ -1,9 +1,11 @@
 - name: Copy docker-compose file
+  become: yes
   copy:
     src: "{{ docker_compose_scr  }}"
     dest: "{{ docker_compose_dsc }}"
 
 - name: Starting deployment
+  become: yes
   shell: |
     docker-compose -f /opt/nextcloud/docker-compose.yaml up -d
   args:

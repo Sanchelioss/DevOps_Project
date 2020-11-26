@@ -70,7 +70,7 @@
             url: "http://localhost"
             return_content: yes
           register: out
-          failed_when: "'Nextcloud' not in out.content"
+          failed_when: "'hfoiuhbgvfioubvhurehbr9egbvpwei' not in out.content"
         - name: Print out
           debug:
             msg: "{{ out }}"
@@ -80,7 +80,7 @@
             username: 'Ansible sender'
             color: danger
             icon_url: https://logos-download.com/wp-content/uploads/2016/10/Ansible_logo.png
-            token: "TFBPBNB2L/B01FX4HAAG0/is8cXkDDVTLq7ItJKM6rWJ7X"
+            token: "{{ slack_token }}"
             channel: "#ci_cd_test"
             msg: "Update is failed! Starting rollback..."
 
@@ -88,4 +88,4 @@
           include_role:
             name: rollback
             tasks_from: rollback
-
+            ansible_become: true

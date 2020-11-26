@@ -11,3 +11,5 @@ source_db_dir: /var/db/mysql/
 sync_db_dir: /opt/backups_nextcloud/db_data
 
 docker_compose_path: /opt/nextcloud/docker-compose.yaml
+
+slack_token: "TFBPBNB2L/B01FX4HAAG0/is8cXkDDVTLq7ItJKM6rWJ7X"

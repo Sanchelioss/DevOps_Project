@@ -4,7 +4,6 @@
   args:
     executable: /bin/bash
   register: stop
-  become: yes
   changed_when: false
 
 - name: Remove docker images
@@ -40,7 +39,6 @@
     executable: /bin/bash
   register: out
   changed_when: false
-  become: yes
 
 - name: Removing docker-compose file
   file:
@@ -58,7 +56,6 @@
   args:
     executable: /bin/bash
   register: start
-  become: yes
 
 - name: Check connection to Localhost
   wait_for:
@@ -90,6 +87,6 @@
     username: 'Ansible sender'
     color: good
     icon_url: https://logos-download.com/wp-content/uploads/2016/10/Ansible_log$
-    token: "TFBPBNB2L/B01FX4HAAG0/is8cXkDDVTLq7ItJKM6rWJ7X"
+    token: "{{ slack_token }}"
     channel: "#ci_cd_test"
     msg: "Rollback complete"
