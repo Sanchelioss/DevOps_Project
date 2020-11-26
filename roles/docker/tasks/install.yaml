@@ -9,6 +9,7 @@
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
   args:
     executable: /bin/bash
+  become:yes
   changed_when: false
 
 - name: Install Docker
