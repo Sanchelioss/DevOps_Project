@@ -3,7 +3,6 @@
     docker-compose -f /opt/nextcloud/docker-compose.yaml down
   args:
     executable: /bin/bash
-  register: stop
   changed_when: false
 
 - name: Remove docker images
@@ -20,7 +19,7 @@
 - name: Remove app dir contents
   become: yes
   file:
-    path: "/opt/nextcloud/app/"
+    path: "{{ item }}"
     state: absent
   with_fileglob:
     - "/opt/nextcloud/app/*"
@@ -28,7 +27,7 @@
 - name: Remove db dir contents
   become: yes
   file:
-    path: "/var/db/mysql/"
+    path: "{{ item }}"
     state: absent
   with_fileglob:
     - "/var/db/mysql/*"
