@@ -13,4 +13,3 @@
     name: rsync
     state: started
     enabled: yes
-  become: yes

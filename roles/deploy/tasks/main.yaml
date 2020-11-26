@@ -9,8 +9,6 @@
   args:
     executable: /bin/bash
   changed_when: false
-  register: start
-  become: yes
 
 - name: Check connection to Localhost
   wait_for:

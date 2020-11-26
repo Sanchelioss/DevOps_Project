@@ -2,6 +2,10 @@ pipeline {
     agent {
         label 'master'
     }
+    triggers {
+        cron('H * * * *')
+    }
+
 
     parameters {
         string(name: 'Git_repository', defaultValue: 'git@github.com:Sanchelioss/DevOps_Project.git', description: 'Project repository (Clone with SSH)')
