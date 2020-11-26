@@ -14,23 +14,23 @@
   register: out
 - name: Print out
   debug:
-    msg: "{{ out.stdout_lines  }}"
+    msg: "{{ out.stdout_lines }}"
 
 - name: Remove app dir contents
   become: yes
   file:
     path: "{{ item }}"
     state: absent
-  with_items:
-    - /opt/nextcloud/app/*
+  with_fileglob:
+    - "/opt/nextcloud/app/*"
 
 - name: Remove db dir contents
   become: yes
   file:
     path: "{{ item }}"
     state: absent
-  with_items:
-    - /var/db/mysql/*
+  with_fileglob:
+    - "/var/db/mysql/*"
 
 - name: Comeback previous contents to home folders
   shell: |
@@ -47,7 +47,7 @@
 
 - name: Return previous docker-compose file
   copy:
-    src: "{{ docker_compose_scr  }}"
+    src: "{{ docker_compose_scr }}"
     dest: "{{ docker_compose_dsc }}"
 
 - name: Starting rollback
